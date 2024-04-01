@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+    <div class="onStartup">
+        <h1>The Restaurant at the End of the Universe</h1>
+
+    <button type="button">Get Tonight's Menu!</button>
+    <div class='loader_div' id='loader'><img class='loader_image' src="loading_icon.gif"/></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  
+    <script type="text/javascript">
+      const btn = document.querySelector('button');
+      btn.addEventListener('click',getOpenAI);
+      btn.addEventListener('click',hideshow, false);
+
+      function hideshow() {
+        this.style.display = 'none';
+      }
+
+      function getOpenAI(e){
+          $.ajax({
+          url : '/api',
+          method : 'GET',
+          beforeSend: function() {
+            $("#loader").show();
+          },
+          success : function(data){
+            $("#loader").hide();
+            console.log(data);
+            document.getElementsByClassName("container")[0].style.display = "block";
+
+            document.getElementById("menu_item1").innerHTML = JSON.parse(data).menu_item1;
+            document.getElementById("description1").innerHTML = JSON.parse(data).description1;
+            document.getElementById("image1").src = JSON.parse(data).image1;
+
+            document.getElementById("menu_item2").innerHTML = JSON.parse(data).menu_item2;
+            document.getElementById("description2").innerHTML = JSON.parse(data).description2;
+            document.getElementById("image2").src = JSON.parse(data).image2;
+
+            document.getElementById("menu_item3").innerHTML = JSON.parse(data).menu_item3;
+            document.getElementById("description3").innerHTML = JSON.parse(data).description3;
+            document.getElementById("image3").src = JSON.parse(data).image3;
+
+            document.getElementById("menu_item4").innerHTML = JSON.parse(data).menu_item4;
+            document.getElementById("description4").innerHTML = JSON.parse(data).description4;
+            document.getElementById("image4").src = JSON.parse(data).image4;
+
+            document.getElementById("menu_item5").innerHTML = JSON.parse(data).menu_item5;
+            document.getElementById("description5").innerHTML = JSON.parse(data).description5;
+            document.getElementById("image5").src = JSON.parse(data).image5;
+
+          },
+        
+          error: function(err){
+            console.log('Failed');
+          }
+        });
+      }
+
+      function getDallE(e){
+          $.ajax({
+          url : '/dalle',
+          method : 'GET',
+          success : function(data){
+            console.log(data);
+            document.getElementById("image1").src = data
+          },
+        
+          error: function(err){
+            console.log('Failed');
+          }
+        });
+      }
+    </script>
+    </div>
+    <div class="container">
+      <div class="menu">
+        <h2 class="menu-group-heading">
+          Entrée 
+        </h2>
+        <div class="menu-group">
+
+          <div class="menu-item">
+            <img class="menu-item-image" id="image1">
+            <div class="menu-item-text">
+              <h3 class="menu-item-heading">
+                <span class="menu-item-name" id="menu_item1"></span>
+                <span class="menu-item-price">$9.99</span>
+              </h3>
+              <p class="menu-item-description" id="description1">
+              </p>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img class="menu-item-image" id="image2">
+            <div class="menu-item-text">
+              <h3 class="menu-item-heading">
+                <span class="menu-item-name" id="menu_item2"></span>
+                <span class="menu-item-price">$9.99</span>
+              </h3>
+              <p class="menu-item-description" id="description2">
+              </p>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img class="menu-item-image" id="image3">
+            <div class="menu-item-text">
+              <h3 class="menu-item-heading">
+                <span class="menu-item-name" id="menu_item3"></span>
+                <span class="menu-item-price">$9.99</span>
+              </h3>
+              <p class="menu-item-description" id="description3">
+              </p>
+            </div>
+          </div>
+
+
+          <div class="menu-item">
+            <img class="menu-item-image" id="image4">
+            <div class="menu-item-text">
+              <h3 class="menu-item-heading">
+                <span class="menu-item-name" id="menu_item4"></span>
+                <span class="menu-item-price">$9.99</span>
+              </h3>
+              <p class="menu-item-description" id="description4">
+              </p>
+            </div>
+          </div>
+
+
+          <div class="menu-item">
+            <img class="menu-item-image" id="image5">
+            <div class="menu-item-text">
+              <h3 class="menu-item-heading">
+                <span class="menu-item-name" id="menu_item5"></span>
+                <span class="menu-item-price">$9.99</span>
+              </h3>
+              <p class="menu-item-description" id="description5">
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </main>
+</body>
+
+</html>
