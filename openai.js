@@ -24,8 +24,7 @@ exports.menu = asyncHandler(async (req, res, next) => {
 
   const completion = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: 'Your task is to generate a dinner menu based on "The Restaurant at the End of the Universe" using non-violent language.'},
-      { role: "user", content: 'Give 7 menu items and their description."'}
+      { role: "system", content: 'Your task is to generate 7 dinner menu items and their description based on "The Restaurant at the End of the Universe" using non-violent language.'}
     ],
     model: "gpt-3.5-turbo",
     functions: [
@@ -111,6 +110,7 @@ exports.menu = asyncHandler(async (req, res, next) => {
     size: "1024x1024"
   }
 
+  console.log(completion);
   console.log(completion.choices[0].message.function_call.arguments);
   const openai_res = JSON.parse(completion.choices[0].message.function_call.arguments);
   console.log(tryParseJSONObject(completion.choices[0].message.function_call.arguments));
