@@ -24,8 +24,8 @@ exports.menu = asyncHandler(async (req, res, next) => {
 
   const completion = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: 'Your task is to generate a dinner menu based on "The Restaurant at the End of the Universe."'},
-      { role: "user", content: 'Give 7 menu items and their description without the word "smashed."'}
+      { role: "system", content: 'Your task is to generate a dinner menu based on "The Restaurant at the End of the Universe" using non-violent language.'},
+      { role: "user", content: 'Give 7 menu items and their description."'}
     ],
     model: "gpt-3.5-turbo",
     functions: [

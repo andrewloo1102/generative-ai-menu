@@ -8,6 +8,13 @@
     display: none;
 }
 
+.loading_text {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-style: italic;
+    text-align: justify;
+}
+
 .loader_image {
     width: 80px;
 }
