@@ -82,6 +82,16 @@ exports.menu = asyncHandler(async (req, res, next) => {
     function_call: {name: "tonightsMenu"}
   });
 
+  console.log(completion);
+  console.log(completion.choices[0].message.function_call.arguments);
+  const openai_res = JSON.parse(completion.choices[0].message.function_call.arguments);
+  console.log(tryParseJSONObject(completion.choices[0].message.function_call.arguments));
+  console.log(Object.keys(tryParseJSONObject(completion.choices[0].message.function_call.arguments)).length);
+  console.log(Object.keys(tryParseJSONObject(completion.choices[0].message.function_call.arguments)).length/2);
+  openai_res.size = Object.keys(tryParseJSONObject(completion.choices[0].message.function_call.arguments)).length/2;
+  res.send(JSON.stringify(openai_res));
+});
+  /*
   // Define all the dalle_inputs 1 through 7
   const dalle_inputs1 = {
     model: "dall-e-3",
@@ -110,11 +120,6 @@ exports.menu = asyncHandler(async (req, res, next) => {
     size: "1024x1024"
   }
 
-  console.log(completion);
-  console.log(completion.choices[0].message.function_call.arguments);
-  const openai_res = JSON.parse(completion.choices[0].message.function_call.arguments);
-  console.log(tryParseJSONObject(completion.choices[0].message.function_call.arguments));
-
   dalle_inputs1.prompt = openai_res.menu_item1 + " - " + openai_res.description1;
   dalle_inputs2.prompt = openai_res.menu_item2 + " - " + openai_res.description2;
   dalle_inputs3.prompt = openai_res.menu_item3 + " - " + openai_res.description3;
@@ -140,3 +145,4 @@ exports.menu = asyncHandler(async (req, res, next) => {
   res.send(JSON.stringify(openai_res));
 
   });
+  */

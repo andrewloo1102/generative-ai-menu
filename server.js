@@ -10,6 +10,7 @@ server.set('port', process.env.PORT || 3000);
 
 // Require controller module
 const openai_api = require("./openai");
+const dalle = require("./dalle");
 
 //Adding routes
 server.get('/',(request,res)=>{
@@ -17,6 +18,8 @@ server.get('/',(request,res)=>{
 });
 
 server.get('/api', openai_api.menu);
+
+server.get('/dalle', dalle.get_image);
 
 //Binding to localhost://3000
 server.listen(3000,()=>{

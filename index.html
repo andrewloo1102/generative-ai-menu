@@ -21,6 +21,8 @@
     <script type="text/javascript">
       const btn = document.querySelector('button');
       btn.addEventListener('click',getOpenAI);
+      //btn.addEventListener('click',getDallE("Cool off with this refreshing and exotic blend of rare Frogstar liquids, served over ice with a twist of lime for a touch of sophistication."));
+      // hide the button that was clicked;
       btn.addEventListener('click',hideshow, false);
 
       function hideshow() {
@@ -41,23 +43,37 @@
 
             document.getElementById("menu_item1").innerHTML = JSON.parse(data).menu_item1;
             document.getElementById("description1").innerHTML = JSON.parse(data).description1;
-            document.getElementById("image1").src = JSON.parse(data).image1;
+            document.getElementById("image1").src = "https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true";
+            getDallE(JSON.parse(data).menu_item1 + " - " + JSON.parse(data).description1,"image1");
 
-            document.getElementById("menu_item2").innerHTML = JSON.parse(data).menu_item2;
-            document.getElementById("description2").innerHTML = JSON.parse(data).description2;
-            document.getElementById("image2").src = JSON.parse(data).image2;
+            if (JSON.parse(data).size >= 2) {
+              document.getElementById("menu_item2").innerHTML = JSON.parse(data).menu_item2;
+              document.getElementById("description2").innerHTML = JSON.parse(data).description2;
+              document.getElementById("image2").src = "https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true";
+            getDallE(JSON.parse(data).menu_item2 + " - " + JSON.parse(data).description2,"image2");
+            }
 
+            if (JSON.parse(data).size >= 3) {
             document.getElementById("menu_item3").innerHTML = JSON.parse(data).menu_item3;
             document.getElementById("description3").innerHTML = JSON.parse(data).description3;
-            document.getElementById("image3").src = JSON.parse(data).image3;
+            document.getElementById("image3").src = "https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true";
+            getDallE(JSON.parse(data).menu_item3 + " - " + JSON.parse(data).description3,"image3");
+            }
 
+            if (JSON.parse(data).size >= 4) {
             document.getElementById("menu_item4").innerHTML = JSON.parse(data).menu_item4;
             document.getElementById("description4").innerHTML = JSON.parse(data).description4;
-            document.getElementById("image4").src = JSON.parse(data).image4;
+            document.getElementById("image4").src = "https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true";
+            getDallE(JSON.parse(data).menu_item4 + " - " + JSON.parse(data).description4,"image4");
+            }
 
+            if (JSON.parse(data).size >= 5) {
             document.getElementById("menu_item5").innerHTML = JSON.parse(data).menu_item5;
             document.getElementById("description5").innerHTML = JSON.parse(data).description5;
-            document.getElementById("image5").src = JSON.parse(data).image5;
+            document.getElementById("image5").src = "https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true";
+            getDallE(JSON.parse(data).menu_item5 + " - " + JSON.parse(data).description5,"image5");
+            }
+
 
           },
         
@@ -67,13 +83,16 @@
         });
       }
 
-      function getDallE(e){
+      function getDallE(image_descripts,image_elt_id){
           $.ajax({
           url : '/dalle',
           method : 'GET',
+          data: {
+            img_descript: image_descripts
+          },
           success : function(data){
             console.log(data);
-            document.getElementById("image1").src = data
+            document.getElementById(image_elt_id).src = data;
           },
         
           error: function(err){
