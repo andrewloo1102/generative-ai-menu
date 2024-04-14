@@ -11,10 +11,13 @@
 <body>
     <div class="onStartup">
         <h1>The Restaurant at the End of the Universe</h1>
-
-    <button type="button">Get Tonight's Menu!</button>
+      <div class="hideOnClick">
+          <label>What is your preferred gustatory inclination, good sir or madam?</label><br>
+          <textarea id="user_input" value="I want Italian food"></textarea><br>
+      <button id="main_button" type="button" disabled>Get Today's Menu!</button>
+      </div>
     <div class='loader_div' id='loader'><img class='loader_image' src="https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true"/>
-    <p class="loading_text">Ah, greetings, dear eater. It is my solemn duty, nay, my cosmic imperative, to inform you that the forthcoming endeavor may require a temporal investment of approximately two minutes. Yes, you heard it correctly, a duration not dissimilar to the lifespan of a fruit fly in the grand tapestry of existence. But fret not, for as we journey through this digital realm, remember that time is but a construct, a fleeting illusion in the infinite expanse of the universe. So, take a moment to ponder the mysteries of the cosmos or perhaps brew a cup of tea – for soon, the voyage shall commence, and together, we shall navigate the boundless seas of knowledge and whimsy.</p>
+    <p class="loading_text"></p>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   
@@ -25,14 +28,28 @@
       // hide the button that was clicked;
       btn.addEventListener('click',hideshow, false);
 
+      $("#user_input").on("keyup", stateHandle);
+
+      function stateHandle(e) {
+        if (e.target.value.trim().length == 0) {
+          $('#main_button').prop('disabled', true);
+        } else {
+          $('#main_button').prop('disabled', false);
+        }
+      }
+
       function hideshow() {
-        this.style.display = 'none';
+        document.getElementsByClassName("hideOnClick")[0].style.display = 'none';
+        //this.style.display = 'none';
       }
 
       function getOpenAI(e){
           $.ajax({
           url : '/api',
           method : 'GET',
+          data: {
+            user_input: document.getElementById("user_input").value
+          },
           beforeSend: function() {
             $("#loader").show();
           },
@@ -73,7 +90,6 @@
             document.getElementById("image5").src = "https://github.com/andrewloo1102/generative-ai-menu/blob/main/images/Loading_icon.gif?raw=true";
             getDallE(JSON.parse(data).menu_item5 + " - " + JSON.parse(data).description5,"image5");
             }
-
 
           },
         
@@ -174,7 +190,7 @@
         </div>
       </div>
     </div>
-    </main>
+    <div class="footer"></div>
 </body>
 
 </html>
